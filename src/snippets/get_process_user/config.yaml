@@ -1,0 +1,18 @@
+name: get_process_user
+return_type: "char*"
+headers:
+  - windows.h
+  - tchar.h
+parameters:
+  - name: process
+    type: HANDLE
+declaration: "char* GetProcessUser(HANDLE process);"
+code_template: |
+  char* username = GetProcessUser(process);
+  if (!username) {{
+      username = strdup("Unknown");
+  }}
+input_template: 
+  process: process
+linking_required: false
+output: get_process_user_output

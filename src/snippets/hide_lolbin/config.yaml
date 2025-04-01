@@ -1,0 +1,26 @@
+name: hide_lolbin
+return_type: BOOL
+headers:
+  - windows.h
+  - winternl.h
+  - stdio.h
+dependencies:
+  - replace_arguments_with_spaces
+  - create_suspended_process
+  - modify_process_command_line
+parameters:
+  - name: lolBinCommand
+    type: "const char*"
+declaration: "BOOL HideLolbin(const char* lolBinCommand);"
+code_template: |
+  BOOL result = HideLolbin({lolBinCommand});
+  if (!result) {{
+      printf("Failed to hide lolbin process\n");
+      return 1;
+  }}
+input_template:
+  lolBinCommand: lolBinCommand
+linking_required: true
+libraries:
+  - ntdll
+output: hide_lolbin_output

@@ -1,0 +1,17 @@
+name: enable_privilege
+return_type: BOOL
+headers:
+  - windows.h
+parameters:
+  - name: privilege
+    type: LPCTSTR
+declaration: "BOOL EnablePrivilege(LPCTSTR privilege);"
+code_template: |
+  if (!EnablePrivilege({privilege})) {{
+      printf("Failed to enable privilege\n");
+      return 1;
+  }}
+input_template: 
+  privilege: privilege
+linking_required: false
+output: enable_privilege_output

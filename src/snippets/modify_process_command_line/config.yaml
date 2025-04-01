@@ -1,0 +1,24 @@
+name: modify_process_command_line
+return_type: BOOL
+headers:
+  - windows.h
+  - winternl.h
+parameters:
+  - name: hProcess
+    type: HANDLE
+  - name: newCommandLine
+    type: "const wchar_t*"
+declaration: "BOOL ModifyProcessCommandLine(HANDLE hProcess, const wchar_t* newCommandLine);"
+code_template: |
+  // Use the wide string version of the command line
+  if (!ModifyProcessCommandLine({hProcess}, {newCommandLine})) {{
+      printf("Failed to modify process command line\n");
+      return 1;
+  }}
+input_template:
+  hProcess: hProcess
+  newCommandLine: newCommandLine
+linking_required: true
+libraries:
+  - ntdll
+output: modify_process_command_line_output

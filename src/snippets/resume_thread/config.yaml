@@ -1,0 +1,18 @@
+name: resume_thread
+return_type: DWORD
+headers:
+  - windows.h
+parameters:
+  - name: threadHandle
+    type: HANDLE
+declaration: "DWORD ResumeThreadByHandle(HANDLE threadHandle);"
+code_template: |
+  DWORD resumeCount = ResumeThreadByHandle({threadHandle});
+  if (resumeCount == (DWORD)-1) {{
+      printf("Failed to resume thread\n");
+      return 1;
+  }}
+input_template:
+  threadHandle: threadHandle
+linking_required: false
+output: resume_thread_output

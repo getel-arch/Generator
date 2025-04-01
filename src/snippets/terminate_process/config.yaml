@@ -1,0 +1,16 @@
+name: terminate_process
+return_type: BOOL
+headers:
+  - windows.h
+  - stdio.h
+parameters:
+  - name: pid
+    type: DWORD
+declaration: "BOOL TerminateProcessById(DWORD pid);"
+code_template: |
+  if (!TerminateProcessById({pid})) {{
+      printf("Failed to terminate process with PID %lu\n", {pid});
+      return 1;
+  }}
+linking_required: false
+output: terminate_process_output

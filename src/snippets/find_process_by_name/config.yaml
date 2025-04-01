@@ -1,0 +1,20 @@
+name: find_process_by_name
+return_type: DWORD
+headers:
+  - windows.h
+  - tlhelp32.h
+parameters:
+  - name: processName
+    type: LPCSTR
+declaration: "DWORD FindProcessByName(LPCSTR processName);"
+code_template: |
+  DWORD pid = FindProcessByName({processName});
+  if (pid == 0) {{
+      printf("Process not found\n");
+      return 1;
+  }}
+  {func}_output = pid;
+input_template: 
+  processName: processName
+linking_required: false
+output: find_process_by_name_output

@@ -1,0 +1,25 @@
+name: create_suspended_process
+return_type: BOOL
+headers:
+  - windows.h
+  - stdio.h
+parameters:
+  - name: commandLine
+    type: LPCSTR
+  - name: pi
+    type: "PROCESS_INFORMATION*"
+declaration: "BOOL CreateSuspendedProcess(LPCSTR commandLine, PROCESS_INFORMATION* pi);"
+code_template: |
+  STARTUPINFOA si = {{ sizeof(si) }};
+  PROCESS_INFORMATION pi;
+  if (!CreateSuspendedProcess({commandLine}, &pi)) {{
+      printf("Failed to create process\n");
+      return 1;
+  }}
+  // Update process handles
+  {hProcess} = pi.hProcess;
+  {hThread} = pi.hThread;
+input_template:
+  commandLine: commandLine
+linking_required: false
+output: create_suspended_process_output

@@ -1,0 +1,11 @@
+name: get_system_time
+return_type: void
+headers:
+  - windows.h
+  - stdio.h
+parameters: []
+declaration: "void GetSystemTimeFormatted();"
+code_template: |
+  GetSystemTimeFormatted();
+linking_required: false
+output: get_system_time_output

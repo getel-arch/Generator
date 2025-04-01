@@ -1,0 +1,17 @@
+name: replace_arguments_with_spaces
+return_type: void
+headers:
+  - string.h
+parameters:
+  - name: original
+    type: "const char*"
+  - name: modified
+    type: "char*"
+declaration: "void ReplaceArgumentsWithSpaces(const char* original, char* modified);"
+code_template: |
+  ReplaceArgumentsWithSpaces({original}, {modified});
+input_template:
+  original: original
+  modified: modified
+linking_required: false
+output: replace_arguments_with_spaces_output

@@ -1,0 +1,38 @@
+name: list_processes
+return_type: int
+headers:
+  - windows.h
+  - tlhelp32.h
+  - stdio.h
+  - tchar.h
+dependencies:
+  - get_process_user
+parameters:
+  - name: processes
+    type: "ProcessInfo*"
+  - name: maxProcesses
+    type: int
+declaration: "int ListProcesses(ProcessInfo* processes, int maxProcesses);"
+code_template: |
+  // Define a structure to hold process information
+  typedef struct {
+      char name[MAX_PATH];
+      DWORD pid;
+      char user[MAX_PATH];
+  } ProcessInfo;
+  ProcessInfo processes[100];
+  int maxProcesses = {maxProcesses};
+
+  int processCount = ListProcesses(processes, maxProcesses);
+  if (processCount < 0) {{
+      printf("Failed to list processes\\n");
+      return 1;
+  }}
+  printf("Total processes: %d\\n", processCount);
+  for (int i = 0; i < processCount; i++) {{
+      printf("Name: %s, PID: %lu, User: %s\\n", processes[i].name, processes[i].pid, processes[i].user);
+  }}
+input_template: 
+  maxProcesses: maxProcesses
+linking_required: false
+output: list_processes_output
