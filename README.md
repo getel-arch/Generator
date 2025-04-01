@@ -43,11 +43,28 @@ Generator/
 
    ```yaml
    functions:
-     - hide_lolbin
-
+     - replace_arguments_with_spaces
+     - create_suspended_process
+     - modify_process_command_line
+     - resume_thread
+   
+   variables:
+     hProcess: HANDLE
+     hThread: HANDLE
+     spoofedCmdline: "char[MAX_PATH]"
+     cmdlineW: "wchar_t[MAX_PATH]"
+   
    flow:
-     - hide_lolbin:
-         lolBinCommand: "cmd.exe /k echo This will not be logged in sysmon test"
+     - replace_arguments_with_spaces:
+         original: "cmd.exe /k echo This will not be logged in sysmon test"
+         modified: "{spoofedCmdline}"
+     - create_suspended_process:
+         commandLine: "{spoofedCmdline}"
+     - modify_process_command_line:
+         hProcess: "{hProcess}"
+         newCommandLine: "{cmdlineW}"
+     - resume_thread:
+         threadHandle: "{hThread}"
    ```
 
 2. **Run the Generator**  
